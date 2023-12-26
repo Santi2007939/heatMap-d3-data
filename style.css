@@ -35,3 +35,8 @@ text {
 #description {
     margin-top: -20px;
 }
+
+#legend {
+    min-width: 400px;
+    min-height: 50px;
+}

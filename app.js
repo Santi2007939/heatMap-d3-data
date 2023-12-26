@@ -1,6 +1,19 @@
 const url = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json";
 let base;
 let info = [];
+const colors = {
+    darkRed: "#2f0000",
+    red: "rgb(215, 48, 39)",
+    orange: "rgb(244, 109, 67)",
+    orayel: "rgb(253, 174, 97)",
+    darkYellow: "rgb(254, 224, 144)",
+    yellow: "rgb(255, 255, 191)",
+    superLightBlue: "rgb(224, 243, 248)",
+    lightBlue: "rgb(171, 217, 233)",
+    blue: "rgb(116, 173, 209)",
+    darkBlue: "rgb(69, 117, 180)", 
+    deepBlue: "#05014a"
+};
 
 let xScale;
 let yScale;
@@ -9,8 +22,10 @@ let w = 1200;
 let h = 600;
 let p = 60;
 
-let svg = d3.select("svg");
+let canvas = d3.select("#canvas");
+let legend = d3.select("#legend")
 let tooltip = d3.select("#tooltip");
+
 let minYear;
 let maxYear;
 
@@ -18,7 +33,7 @@ let genScales = () => {
     minYear = d3.min(info, (i) => {return i["year"]});
     maxYear = d3.max(info, (i) => {return i["year"]});
 
-    xScale = d3.scaleLinear()
+    xScale = d3.scaleLinear(2.8, 3.9, 5.0)
                 .domain([minYear, maxYear +1])
                 .range([p, w - p]);
 
@@ -32,34 +47,49 @@ let genScales = () => {
 let genAxes = () => {
     let xAxis = d3.axisBottom(xScale)
                     .tickFormat(d3.format("d"));
-    svg.append("g")
+    canvas.append("g")
             .call(xAxis)
             .attr("id", "x-axis")
             .attr("transform", "translate(0, " + (h - p) + ")");
 
-    let yAXis = d3.axisLeft(yScale);
-    svg.append("g")
+    let yAXis = d3.axisLeft(yScale)
+                    .tickFormat(d3.timeFormat("%B"));
+    canvas.append("g")
             .call(yAXis)
             .attr("id", "y-axis")
             .attr("transform", "translate(" + p + ", 0)");
 };
 
 let cells = () => {
-    svg.selectAll("rect")
+    canvas.selectAll("rect")
             .data(info)
             .enter()
             .append("rect")
             .attr("class", "cell")
             .attr("fill", (i) => {
-                variance = i["variance"];
-                if(variance <= -1) {
-                    return "SteelBlue";
-                } else if (variance <= 0) {
-                    return "LightSteelBlue";
-                } else if (variance <= 1) {
-                    return "Orange";
+                temperature = Number((base + i["variance"]).toFixed(1));
+                if (temperature >= 12.8) {
+                    return colors.darkRed;
+                } else if(temperature >= 11.7) {
+                    return colors.red;
+                } else if (temperature >= 10.6) {
+                    return colors.orange;
+                } else if (temperature >= 9.5) {
+                    return colors.orayel;
+                } else if (temperature >= 8.3) {
+                    return colors.darkYellow;
+                } else if (temperature >= 7.2) {
+                    return colors.yellow;
+                } else if (temperature >= 6.1) {
+                    return colors.superLightBlue;
+                } else if (temperature >= 5.0) {
+                    return colors.lightBlue;
+                } else if (temperature >= 3.9) {
+                    return colors.blue;
+                } else if (temperature >= 2.8) {
+                    return colors.darkBlue;
                 } else {
-                    return "#DC143C";
+                    return colors.deepBlue;
                 }
             })
             .attr("data-year", (i) => {return i["year"]})
