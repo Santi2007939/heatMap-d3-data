@@ -1,6 +1,22 @@
 const url = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json";
 let base;
 let info = [];
+
+var meses = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
 const colors = {
     darkRed: "#8B0000",
     red: "rgb(215, 48, 39)",
@@ -14,6 +30,7 @@ const colors = {
     darkBlue: "rgb(69, 117, 180)", 
     deepBlue: "#05014a"
 };
+
 
 let xScale;
 let yScale;
@@ -94,7 +111,7 @@ let cells = () => {
             })
             .attr("data-year", (i) => {return i["year"]})
             .attr("data-month", (i) => {return i["month"] - 1})
-            .attr("data-temp", (i) => {return Number((base + i["variance"]).toFixed(1))})
+            .attr("data-temp", (i) => {return temperature})
             .attr("height", (h - (2 * p))/12)
             .attr("y", (i) => {return yScale(new Date(0, i["month"] -1, 0, 0, 0, 0, 0))})
             .attr("width", (i) => {
@@ -103,6 +120,35 @@ let cells = () => {
             })
             .attr("x", (i) => {
                 return xScale(i["year"]);
+            })
+            .on("mouseover", (e, i) => {
+                let posX = xScale(i["Year"]);
+                let posY = yScale(new Date(0, i["month"] -1, 0, 0, 0, 0, 0));
+    
+                tooltip.transition()
+                    .style("visibility", "visible");
+                tooltip.select("rect")
+                    .attr("x", posX)
+                    .attr("y", posY - 70)
+                    .attr("height", 90)
+                    .attr("fill", "#FAEED1")
+    
+                tooltip.select("#one")
+                    .attr("x", posX)
+                    .attr("y", posY - 50)
+                    .text(i["year"] + " - " + meses[i["month"] - 1]);
+                tooltip.select("#two")
+                    .attr("x", posX)
+                    .attr("y", posY - 30)
+                    .text(temperature + "°C");
+                tooltip.select("#three")
+                    .attr("x", posX)
+                    .attr("y", posY - 10)
+                    .text(Number(i["variance"].toFixed(1)) + "°C");
+            })
+            .on("mouseout", (e, i) => {
+                tooltip.transition()
+                    .style("visibility", "hidden");
             })
 };
 
