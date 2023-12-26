@@ -37,7 +37,27 @@ let genAxes = () => {
 };
 
 let cells = () => {
+    svg.selectAll("rect")
+            .data(info)
+            .enter()
+            .append("rect")
+            .attr("class", "cell")
+            .attr("fill", (i) => {
+                variance = i["variance"]
+                if(variance <= -1) {
+                    return "SteelBlue";
+                } else if (variance <= 0) {
+                    return "LightSteelBlue";
+                } else if (variance <= 1) {
+                    return "Orange";
+                } else {
+                    return "Crimsom";
+                }
+            })
 
+            .attr("data-year", (i) => {return i["year"]})
+            .attr("data-month", (i) => {return i["month"]})
+            .attr("data-temp", (i) => {return Number((base - i["variance"]).toFixed(1))});
 };
 
 fetch(url)
