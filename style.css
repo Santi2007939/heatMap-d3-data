@@ -1,0 +1,37 @@
+html {
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+svg {
+    background-color: whitesmoke;
+}
+
+#canvas {
+    min-height: 600px;
+    min-width: 1200px;
+}
+
+#tooltip {
+    visibility: hidden;
+    width: fit-content;
+    height: fit-content;
+    fill: rgb(250, 215, 215);
+}
+
+text {
+    z-index: 5;
+    font-size: 12px;
+    fill: #2f3a3b;
+}
+
+#description {
+    margin-top: -20px;
+}
