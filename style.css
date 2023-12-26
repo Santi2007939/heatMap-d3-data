@@ -37,6 +37,10 @@ text {
 }
 
 #legend {
-    min-width: 400px;
-    min-height: 50px;
+    min-width: 300px;
+    min-height: 240px;
+}
+
+#legend text {
+    font-size: 12px;
 }

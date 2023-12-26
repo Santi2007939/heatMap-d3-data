@@ -2,7 +2,7 @@ const url = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData
 let base;
 let info = [];
 const colors = {
-    darkRed: "#2f0000",
+    darkRed: "#8B0000",
     red: "rgb(215, 48, 39)",
     orange: "rgb(244, 109, 67)",
     orayel: "rgb(253, 174, 97)",
