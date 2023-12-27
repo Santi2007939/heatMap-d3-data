@@ -122,29 +122,29 @@ let cells = () => {
                 return xScale(i["year"]);
             })
             .on("mouseover", (e, i) => {
-                let posX = xScale(i["Year"]);
-                let posY = yScale(new Date(0, i["month"] -1, 0, 0, 0, 0, 0));
-    
                 tooltip.transition()
                     .style("visibility", "visible");
                 tooltip.select("rect")
-                    .attr("x", posX)
-                    .attr("y", posY - 70)
+                    .attr("x", 350)
+                    .attr("y", 80)
                     .attr("height", 90)
-                    .attr("fill", "#FAEED1")
+                    .attr("width", 100)
+                    .attr("fill", "black")
+                    .attr("rx", 4)
     
                 tooltip.select("#one")
-                    .attr("x", posX)
-                    .attr("y", posY - 50)
+                    .attr("x", 350)
+                    .attr("y", 95)
                     .text(i["year"] + " - " + meses[i["month"] - 1]);
                 tooltip.select("#two")
-                    .attr("x", posX)
-                    .attr("y", posY - 30)
+                    .attr("x", 380)
+                    .attr("y", 125)
                     .text(temperature + "°C");
                 tooltip.select("#three")
-                    .attr("x", posX)
-                    .attr("y", posY - 10)
-                    .text(Number(i["variance"].toFixed(1)) + "°C");
+                    .attr("x", 379)
+                    .attr("y", 155)
+                    .text(Number(i["variance"].toFixed(1)) + "°C")
+                tooltip.attr("data-year", i["year"]);
             })
             .on("mouseout", (e, i) => {
                 tooltip.transition()

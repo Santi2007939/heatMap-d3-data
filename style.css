@@ -2,28 +2,43 @@ html {
     min-height: 100%;
 }
 
+*{
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #ddd498;
+}
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
+    background-color: #405eb8;
 }
 
 svg {
-    background-color: whitesmoke;
+    background-color: #8d946c;
 }
 
 #canvas {
     min-height: 600px;
     min-width: 1200px;
+    overflow: visible;
 }
 
 #tooltip {
     visibility: hidden;
     width: fit-content;
     height: fit-content;
-    fill: rgb(250, 215, 215);
+    overflow: visible;
+}
+
+#tooltip rect {
+    fill: #8d946c;
+}
+
+#tooltip text {
+    fill: #ddd498;
 }
 
 text {
@@ -34,13 +49,16 @@ text {
 
 #description {
     margin-top: -20px;
+    margin-bottom: 30px;
 }
 
 #legend {
     min-width: 300px;
     min-height: 240px;
+    overflow: visible;
+
 }
 
 #legend text {
-    font-size: 12px;
+    font-size: 13px;
 }
